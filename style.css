@@ -1,214 +1,65 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", system-ui, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apex Rise | Digital Card</title>
 
-/* Page */
-body {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #231012, #0f0607);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #ead9b6;
-  overflow: hidden;
-}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-/* Molecular canvas */
-#moleculeCanvas {
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-}
+  <!-- Molecular Background -->
+  <canvas id="moleculeCanvas"></canvas>
 
-/* Waves */
-.wave-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-}
+  <!-- Animated Waves -->
+  <div class="wave-bg">
+    <span class="wave wave1"></span>
+    <span class="wave wave2"></span>
+    <span class="wave wave3"></span>
+  </div>
 
-.wave {
-  position: absolute;
-  width: 200%;
-  height: 55%;
-  left: -50%;
-  bottom: -30%;
-  border-radius: 100%;
-  filter: blur(2px);
-}
+  <div class="instruction">👉 Tap the card for details</div>
 
-.wave1 {
-  background: radial-gradient(circle, #3a1418, #120607);
-  opacity: 0.22;
-  animation: waveMove 26s linear infinite;
-}
+  <div class="scene">
+    <div class="card" id="card">
 
-.wave2 {
-  background: radial-gradient(circle, #2a0f12, #0f0607);
-  opacity: 0.15;
-  animation: waveMoveReverse 36s linear infinite;
-}
+      <!-- FRONT -->
+      <div class="card-face card-front">
+        <img src="front.png" alt="Front Card">
+      </div>
 
-.wave3 {
-  background: radial-gradient(circle, #4a1b1f, #1a0809);
-  opacity: 0.1;
-  animation: waveMove 46s linear infinite;
-}
+      <!-- BACK -->
+      <div class="card-face card-back">
 
-@keyframes waveMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(25%); }
-}
+        <div class="back-top">
+          <a href="tel:+919979305484">+91 9979305484</a> |
+          <a href="mailto:apexrise6@gmail.com">apexrise6@gmail.com</a> |
+          <a href="https://www.google.com/maps/search/Rajmoti-1,+Vapi,+Gujarat+396195" target="_blank">
+            Rajmoti-1, Vapi, Gujarat 396195
+          </a>
+        </div>
 
-@keyframes waveMoveReverse {
-  from { transform: translateX(0); }
-  to { transform: translateX(-25%); }
-}
+        <div class="icons-center">
+          <a href="tel:+919979305484"><i class="fa-solid fa-phone"></i></a>
+          <a href="mailto:apexrise6@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://wa.me/919979305484" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
 
-/* Instruction */
-.instruction {
-  margin-bottom: 22px;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
+        <div class="divider"></div>
+        <div class="focus-title">Business Focus</div>
+        <div class="divider small"></div>
 
-/* 3D Scene */
-.scene {
-  perspective: 1600px;
-}
+        <div class="focus-text">
+          Serving chemicals, plastics, and steel industries<br>
+          with reliable raw materials & industrial supplies
+        </div>
 
-/* Card */
-.card {
-  width: 390px;
-  height: 225px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
-  cursor: pointer;
-}
+      </div>
+    </div>
+  </div>
 
-.card.is-flipped {
-  transform: rotateY(180deg);
-}
-
-/* Card faces */
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
-  backface-visibility: hidden;
-  overflow: hidden;
-  box-shadow:
-    0 22px 45px rgba(0,0,0,0.75),
-    0 6px 14px rgba(0,0,0,0.4);
-}
-
-/* SHIMMER */
-.card-face::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 35%,
-    rgba(255, 235, 200, 0.18),
-    transparent 65%
-  );
-  transform: translateX(-120%);
-  animation: shimmer 6s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-120%); }
-  50% { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
-}
-
-/* Front */
-.card-front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Back */
-.card-back {
-  background: linear-gradient(135deg, #4f1c20, #612327, #47171b);
-  padding: 18px 20px;
-  text-align: center;
-  transform: rotateY(180deg);
-}
-
-/* Top info */
-.back-top {
-  font-size: 0.68rem;
-  margin-bottom: 20px;
-}
-
-.back-top a {
-  color: #ead9b6;
-  text-decoration: none;
-}
-
-.back-top a:hover {
-  opacity: 0.8;
-}
-
-/* Icons */
-.icons-center {
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  margin-bottom: 14px;
-}
-
-.icons-center a {
-  color: #ead9b6;
-  font-size: 20px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.icons-center a:hover {
-  transform: scale(1.18);
-  opacity: 0.85;
-}
-
-/* Dividers */
-.divider {
-  height: 1px;
-  background: rgba(234,217,182,0.45);
-  margin: 8px 0;
-}
-
-.divider.small {
-  width: 62%;
-  margin: 14px auto 18px;
-}
-
-/* Focus */
-.focus-title {
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.7px;
-  text-transform: uppercase;
-}
-
-.focus-text {
-  font-size: 0.72rem;
-  line-height: 1.55;
-  letter-spacing: 0.25px;
-}
-
-/* Mobile */
-@media (max-width: 420px) {
-  .card {
-    width: 325px;
-    height: 190px;
-  }
-}
+  <script src="script.js"></script>
+</body>
+</html>
