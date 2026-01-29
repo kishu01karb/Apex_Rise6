@@ -5,6 +5,7 @@
   font-family: "Poppins", system-ui, sans-serif;
 }
 
+/* Page */
 body {
   min-height: 100vh;
   background: radial-gradient(circle at top, #231012, #0f0607);
@@ -16,41 +17,112 @@ body {
   overflow: hidden;
 }
 
-/* Background layers */
-#moleculeCanvas { position: fixed; inset: 0; z-index: -3; }
-.wave-bg { position: fixed; inset: 0; z-index: -2; }
+/* Molecular canvas */
+#moleculeCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+}
+
+/* Waves */
+.wave-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 55%;
+  left: -50%;
+  bottom: -30%;
+  border-radius: 100%;
+  filter: blur(2px);
+}
+
+.wave1 {
+  background: radial-gradient(circle, #3a1418, #120607);
+  opacity: 0.22;
+  animation: waveMove 26s linear infinite;
+}
+
+.wave2 {
+  background: radial-gradient(circle, #2a0f12, #0f0607);
+  opacity: 0.15;
+  animation: waveMoveReverse 36s linear infinite;
+}
+
+.wave3 {
+  background: radial-gradient(circle, #4a1b1f, #1a0809);
+  opacity: 0.1;
+  animation: waveMove 46s linear infinite;
+}
+
+@keyframes waveMove {
+  to { transform: translateX(25%); }
+}
+
+@keyframes waveMoveReverse {
+  to { transform: translateX(-25%); }
+}
 
 /* Instruction */
 .instruction {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   font-size: 0.95rem;
   opacity: 0.9;
 }
 
 /* 3D Scene */
-.scene { perspective: 1600px; }
+.scene {
+  perspective: 1600px;
+}
 
-/* CARD */
+/* =========================
+   CARD (FIXED PROPERLY)
+   ========================= */
 .card {
-  width: 390px;
-  height: 225px;
+  width: min(420px, 92vw);      /* ⬅ responsive width */
+  aspect-ratio: 420 / 260;     /* ⬅ enough height always */
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.4,0.2,0.2,1);
+  transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
   cursor: pointer;
 }
 
-.card.is-flipped { transform: rotateY(180deg); }
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
 
 /* Card faces */
 .card-face {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   border-radius: 22px;
   backface-visibility: hidden;
   overflow: hidden;
   box-shadow: 0 22px 45px rgba(0,0,0,0.75);
+}
+
+/* Shimmer */
+.card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    rgba(255, 235, 200, 0.18),
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  animation: shimmer 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  50% { transform: translateX(120%); }
 }
 
 /* Front */
@@ -63,22 +135,28 @@ body {
 /* Back */
 .card-back {
   background: linear-gradient(135deg, #4f1c20, #612327, #47171b);
-  padding: 18px 20px;
+  padding: 20px 22px;   /* ⬅ slightly more breathing space */
   text-align: center;
   transform: rotateY(180deg);
 }
 
-/* Content spacing */
+/* Top info */
 .back-top {
-  font-size: 0.68rem;
-  margin-bottom: 16px;
+  font-size: 0.7rem;
+  margin-bottom: 18px;
 }
 
+.back-top a {
+  color: #ead9b6;
+  text-decoration: none;
+}
+
+/* Icons */
 .icons-center {
   display: flex;
   justify-content: center;
-  gap: 26px;
-  margin-bottom: 10px;
+  gap: 30px;
+  margin-bottom: 14px;
 }
 
 .icons-center a {
@@ -86,52 +164,34 @@ body {
   font-size: 20px;
 }
 
+/* Dividers */
 .divider {
   height: 1px;
   background: rgba(234,217,182,0.45);
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .divider.small {
   width: 62%;
-  margin: 10px auto 14px;
+  margin: 14px auto 18px;
 }
 
+/* Focus */
 .focus-title {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
 }
 
 .focus-text {
-  font-size: 0.72rem;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  line-height: 1.55;
 }
 
-/* ✅ MOBILE FIX — THIS SOLVES THE CHOPPING */
+/* Minimal mobile tweak (optional, safe) */
 @media (max-width: 420px) {
-  .card {
-    width: 320px;
-    height: 250px;   /* ⬅ KEY FIX: MORE HEIGHT */
-  }
-
-  .back-top {
-    font-size: 0.6rem;
-    margin-bottom: 12px;
-  }
-
-  .icons-center {
-    margin-bottom: 8px;
-    gap: 22px;
-  }
-
-  .focus-title {
-    font-size: 0.78rem;
-  }
-
   .focus-text {
-    font-size: 0.65rem;
-    line-height: 1.45;
+    font-size: 0.68rem;
   }
 }
