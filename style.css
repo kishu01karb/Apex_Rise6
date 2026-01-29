@@ -80,11 +80,11 @@ body {
 }
 
 /* =========================
-   CARD (FIXED PROPERLY)
+   CARD (RESPONSIVE + SAFE)
    ========================= */
 .card {
-  width: min(420px, 92vw);      /* ⬅ responsive width */
-  aspect-ratio: 420 / 260;     /* ⬅ enough height always */
+  width: min(420px, 92vw);
+  aspect-ratio: 420 / 260;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -105,37 +105,52 @@ body {
   box-shadow: 0 22px 45px rgba(0,0,0,0.75);
 }
 
-/* Shimmer */
-.card-face::after {
+/* =========================
+   SHIMMER (FRONT + BACK)
+   ========================= */
+.card-front::after,
+.card-back::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     120deg,
-    transparent 35%,
-    rgba(255, 235, 200, 0.18),
-    transparent 65%
+    transparent 40%,
+    rgba(255, 235, 200, 0.22),
+    transparent 60%
   );
-  transform: translateX(-120%);
-  animation: shimmer 6s ease-in-out infinite;
+  transform: translateX(-130%);
+  animation: shimmer 7s ease-in-out infinite;
   pointer-events: none;
 }
+
+/* Softer shimmer on image side */
+.card-front::after {
+  opacity: 0.55;
+}
+
+/* Slightly stronger shimmer on designed back */
+.card-back::after {
+  opacity: 0.9;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-130%); }
+  50%  { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
+}
+
 /* FORCE GOLD COLOR FOR ALL LINKS INSIDE CARD */
 .card a {
-  color: #ead9b6 !important;   /* beige-gold */
+  color: #ead9b6 !important;
   text-decoration: none;
 }
 
-/* Remove blue on visited / active / focus states */
 .card a:visited,
 .card a:active,
 .card a:focus {
   color: #ead9b6 !important;
   text-decoration: none;
-}
-
-@keyframes shimmer {
-  50% { transform: translateX(120%); }
 }
 
 /* Front */
@@ -148,7 +163,7 @@ body {
 /* Back */
 .card-back {
   background: linear-gradient(135deg, #4f1c20, #612327, #47171b);
-  padding: 20px 22px;   /* ⬅ slightly more breathing space */
+  padding: 20px 22px;
   text-align: center;
   transform: rotateY(180deg);
 }
@@ -157,11 +172,6 @@ body {
 .back-top {
   font-size: 0.7rem;
   margin-bottom: 18px;
-}
-
-.back-top a {
-  color: #ead9b6;
-  text-decoration: none;
 }
 
 /* Icons */
@@ -173,7 +183,6 @@ body {
 }
 
 .icons-center a {
-  color: #ead9b6;
   font-size: 20px;
 }
 
@@ -202,10 +211,9 @@ body {
   line-height: 1.55;
 }
 
-/* Minimal mobile tweak (optional, safe) */
+/* Minimal mobile tweak */
 @media (max-width: 420px) {
   .focus-text {
     font-size: 0.68rem;
   }
 }
-
