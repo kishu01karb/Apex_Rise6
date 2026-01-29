@@ -1,40 +1,38 @@
-/* Prevent flip when clicking links */
+// Prevent flip when clicking links
 const card = document.getElementById("card");
 card.addEventListener("click", (e) => {
   if (e.target.closest("a")) return;
   card.classList.toggle("is-flipped");
 });
 
-/* ===== Molecular Background (Abstract Chemistry) ===== */
+/* Molecular background */
 const canvas = document.getElementById("moleculeCanvas");
 const ctx = canvas.getContext("2d");
 
-let w, h;
 function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 }
 window.addEventListener("resize", resize);
 resize();
 
 const nodes = Array.from({ length: 26 }, () => ({
-  x: Math.random() * w,
-  y: Math.random() * h,
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
   vx: (Math.random() - 0.5) * 0.25,
   vy: (Math.random() - 0.5) * 0.25,
   r: Math.random() * 2 + 1
 }));
 
-function draw() {
-  ctx.clearRect(0, 0, w, h);
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let i = 0; i < nodes.length; i++) {
-    const n = nodes[i];
+  nodes.forEach((n, i) => {
     n.x += n.vx;
     n.y += n.vy;
 
-    if (n.x < 0 || n.x > w) n.vx *= -1;
-    if (n.y < 0 || n.y > h) n.vy *= -1;
+    if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
 
     ctx.fillStyle = "rgba(234,217,182,0.25)";
     ctx.beginPath();
@@ -46,16 +44,14 @@ function draw() {
       const d = Math.hypot(n.x - m.x, n.y - m.y);
       if (d < 120) {
         ctx.strokeStyle = "rgba(234,217,182,0.08)";
-        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(n.x, n.y);
         ctx.lineTo(m.x, m.y);
         ctx.stroke();
       }
     }
-  }
+  });
 
-  requestAnimationFrame(draw);
+  requestAnimationFrame(animate);
 }
-
-draw();
+animate();
