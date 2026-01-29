@@ -120,6 +120,19 @@ body {
   animation: shimmer 6s ease-in-out infinite;
   pointer-events: none;
 }
+/* FORCE GOLD COLOR FOR ALL LINKS INSIDE CARD */
+.card a {
+  color: #ead9b6 !important;   /* beige-gold */
+  text-decoration: none;
+}
+
+/* Remove blue on visited / active / focus states */
+.card a:visited,
+.card a:active,
+.card a:focus {
+  color: #ead9b6 !important;
+  text-decoration: none;
+}
 
 @keyframes shimmer {
   50% { transform: translateX(120%); }
@@ -195,3 +208,4 @@ body {
     font-size: 0.68rem;
   }
 }
+
