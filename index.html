@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apex Rise | Digital Card</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Abstract Molecular Background -->
+  <canvas id="moleculeCanvas"></canvas>
+
+  <!-- Animated Waves -->
+  <div class="wave-bg">
+    <span class="wave wave1"></span>
+    <span class="wave wave2"></span>
+    <span class="wave wave3"></span>
+  </div>
+
+  <div class="instruction">
+    👉 Tap the card for details
+  </div>
+
+  <div class="scene">
+    <div class="card" id="card">
+
+      <!-- FRONT -->
+      <div class="card-face card-front">
+        <img src="front.png" alt="Front Card">
+      </div>
+
+      <!-- BACK -->
+      <div class="card-face card-back">
+
+        <div class="back-top">
+          <a href="tel:+919979305484">+91 9979305484</a> |
+          <a href="mailto:apexrise6@gmail.com">apexrise6@gmail.com</a> |
+          <a href="https://www.google.com/maps/search/Rajmoti-1,+Vapi,+Gujarat+396195" target="_blank">
+            Rajmoti-1, Vapi, Gujarat 396195
+          </a>
+        </div>
+
+        <div class="icons-center">
+          <a href="tel:+919979305484"><i class="fa-solid fa-phone"></i></a>
+          <a href="mailto:apexrise6@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://wa.me/919979305484" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="focus-title">Business Focus</div>
+        <div class="divider small"></div>
+
+        <div class="focus-text">
+          Serving chemicals, plastics, and steel industries<br>
+          with reliable raw materials & industrial supplies
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
